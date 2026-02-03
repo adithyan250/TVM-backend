@@ -6,7 +6,7 @@ const Part = require('../models/Part');
 // @access  Private
 const createSale = async (req, res) => {
     try {
-        const { items, customerName, gstRate = 18 } = req.body;
+        const { items, customerName } = req.body;
 
         if (!items || items.length === 0) {
             return res.status(400).json({ message: 'No items in sale' });
@@ -47,8 +47,7 @@ const createSale = async (req, res) => {
             await part.save();
         }
 
-        const gstAmount = (subtotal * gstRate) / 100;
-        const grandTotal = subtotal + gstAmount;
+        const grandTotal = subtotal;
 
         if (!req.user) {
             return res.status(401).json({ message: 'User not found' });
@@ -57,8 +56,6 @@ const createSale = async (req, res) => {
         const sale = new Sale({
             items: processedItems,
             subtotal,
-            gstRate,
-            gstAmount,
             grandTotal,
             customerName,
             soldBy: req.user._id

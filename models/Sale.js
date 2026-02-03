@@ -19,14 +19,6 @@ const saleSchema = mongoose.Schema({
         type: Number,
         required: true
     },
-    gstRate: {
-        type: Number,
-        default: 18 // Default 18%
-    },
-    gstAmount: {
-        type: Number,
-        required: true
-    },
     grandTotal: {
         type: Number,
         required: true
