@@ -45,7 +45,7 @@ const getPartById = async (req, res) => {
 // @access  Private/Admin
 const createPart = async (req, res) => {
     try {
-        const { name, sku, category, quantity, price, minStockLevel, location } = req.body;
+        const { name, sku, category, quantity, price, wholesalePrice, minStockLevel, location } = req.body;
 
         const part = new Part({
             name,
@@ -53,6 +53,7 @@ const createPart = async (req, res) => {
             category,
             quantity,
             price,
+            wholesalePrice,
             minStockLevel,
             location
         });
@@ -69,7 +70,7 @@ const createPart = async (req, res) => {
 // @access  Private/Admin
 const updatePart = async (req, res) => {
     try {
-        const { name, sku, category, quantity, price, minStockLevel, location } = req.body;
+        const { name, sku, category, quantity, price, wholesalePrice, minStockLevel, location } = req.body;
 
         const part = await Part.findById(req.params.id);
 
@@ -79,6 +80,7 @@ const updatePart = async (req, res) => {
             part.category = category || part.category;
             part.quantity = quantity !== undefined ? quantity : part.quantity;
             part.price = price !== undefined ? price : part.price;
+            part.wholesalePrice = wholesalePrice !== undefined ? wholesalePrice : part.wholesalePrice;
             part.minStockLevel = minStockLevel !== undefined ? minStockLevel : part.minStockLevel;
             part.location = location || part.location;
 

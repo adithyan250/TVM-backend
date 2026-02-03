@@ -10,7 +10,9 @@ const saleSchema = mongoose.Schema({
         name: { type: String, required: true }, // Store name for historical record
         sku: { type: String, required: true },
         quantity: { type: Number, required: true },
-        price: { type: Number, required: true }, // Unit price
+        quantity: { type: Number, required: true },
+        price: { type: Number, required: true }, // Unit selling price
+        wholesalePrice: { type: Number, required: true, default: 0 }, // Unit wholesale price (cost)
         total: { type: Number, required: true }  // quantity * price
     }],
     subtotal: {

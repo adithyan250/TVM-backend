@@ -38,6 +38,7 @@ const createSale = async (req, res) => {
                 sku: part.sku,
                 quantity: parseInt(item.quantity),
                 price: part.price,
+                wholesalePrice: part.wholesalePrice || 0,
                 total: itemTotal
             });
 
@@ -85,7 +86,23 @@ const getSales = async (req, res) => {
     }
 };
 
+const deleteSale = async (req, res) => {
+    try {
+        const sale = await Sale.findById(req.params.id);
+
+        if (sale) {
+            await sale.deleteOne();
+            res.json({ message: 'Sale removed' });
+        } else {
+            res.status(404).json({ message: 'Sale not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
 module.exports = {
     createSale,
-    getSales
+    getSales,
+    deleteSale
 };
